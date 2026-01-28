@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Aquí es donde ocurre la magia: 
-     Le decimos a Tailwind que la utilidad 'font-nunito' 
-     debe usar la variable inyectada por Next.js */
   --font-nunito: var(--font-nunito);
   --font-sans: var(--font-dm-sans);
 }
