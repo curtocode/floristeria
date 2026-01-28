@@ -8,7 +8,7 @@ interface Props {
 export const ProductCard = ({ product }: Props) => {
   return (
     <div className="
-      /* Layout y Espaciado */
+      /* Layout y Espaciado - Figma: padding 16px, gap 16px */
       flex flex-col p-4 gap-4 
       /* Estilos de la Tarjeta (Figma) */
       bg-white 
@@ -16,8 +16,10 @@ export const ProductCard = ({ product }: Props) => {
       shadow-[0px_4px_4px_-1px_rgba(12,12,13,0.1),0px_4px_4px_-1px_rgba(12,12,13,0.05)]
       /* Comportamiento extra */
       transition-transform hover:-translate-y-1 duration-300
-      h-auto w-full max-w-[384px] mx-auto
-      relative /* Necesario para que el botón se posicione respecto a la tarjeta si se sale */
+      /* Mobile: width 361px (full), Desktop: width 384px */
+      h-[422px] w-full max-w-[361px] md:max-w-[384px] md:min-w-[384px] mx-auto
+      relative /* Necesario para posicionar elementos absolutos */
+      isolate /* Figma: isolation: isolate */
     ">
       
       {/* (Heading  */}
@@ -39,23 +41,23 @@ export const ProductCard = ({ product }: Props) => {
       </div>
 
       {/* IMAGEN Y BOTONES (Image - Order 1) */}
-      <div className="relative w-full h-[300px]">
+      <div className="relative w-full h-[300px] flex-none self-stretch z-[1]">
         <img 
           src={product.imgUrl} 
           alt={product.name}
           className="w-full h-full object-cover rounded-[24px]"
         />
 
-        {/* Precio (Pastilla izquierda) */}
+        {/* Precio (Pastilla izquierda) - Mobile: left 8px (dentro del padding 16px del card = 24px desde borde) */}
         <div className="
-          absolute bottom-[24px] left-[24px] /* Figma: bottom 24, left 24 */
+          absolute bottom-[24px] left-[8px] /* Ajustado: 8px desde imagen = 24px desde borde card */
           flex items-center justify-center 
           px-4 py-2.5 
           bg-white rounded-full 
           shadow-sm
         ">
           <span className="font-nunito font-medium text-[20px] leading-[30px] text-black">
-            {product.price.toFixed(2)} €
+            € {product.price.toFixed(2)} 
           </span>
         </div>
 
@@ -63,10 +65,10 @@ export const ProductCard = ({ product }: Props) => {
         <Link 
           href={`/product/${product.id}`}
           className="
-            /* Posicionamiento exacto de Figma */
+            /* Posicionamiento - Mobile: right 8px (dentro del padding del card) */
             absolute 
             bottom-[24px] 
-            right-[24px] 
+            right-[8px] 
             z-[3]
 
             /* Dimensiones */

@@ -5,7 +5,7 @@ export default function Header() {
     <header 
       style={{
         position: 'fixed',
-        width: '100vw',
+        width: '100%',
         height: '66px',
         left: '0px',
         top: '0px',
@@ -17,6 +17,7 @@ export default function Header() {
         padding: '8px 4px',
         gap: '4px',
         boxSizing: 'border-box',
+        zIndex: 1000,
       }}
     >
       <Image

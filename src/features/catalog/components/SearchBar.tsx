@@ -6,9 +6,10 @@ export const SearchBar = ({ onSearch }: Props) => {
   return (
     <div className="
       flex items-center gap-[10px] px-4 py-2 
-      w-full max-w-[600px] h-[40px] 
+      w-full md:max-w-[600px] h-[40px] 
       bg-white 
       border border-[#BBBBBB] rounded-[8px]
+      self-stretch
     ">
       {/* Icono Lupa */}
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A4A4A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -23,7 +24,7 @@ export const SearchBar = ({ onSearch }: Props) => {
         className="
           flex-grow outline-none bg-transparent
           font-sans font-normal text-[16px] leading-[24px] 
-          text-[#777777] placeholder-[#606060]
+          text-[#111111] placeholder-[#777777]
         "
       />
     </div>

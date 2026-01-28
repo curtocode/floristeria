@@ -44,17 +44,16 @@ export default function CatalogView() {
   if (isLoading) return <div className="text-center py-20 font-nunito text-xl">Cargando catálogo...</div>;
 
   return (
-    <div className="flex flex-col items-center gap-[48px] w-full max-w-[1200px] mx-auto px-4 py-8">
+    <div className="flex flex-col items-center gap-[48px] w-full max-w-[1200px] mx-auto px-4 pt-[48px] pb-8">
       
-      {}
-      {/* Le pasamos la función handleSearch al hijo */}
+      {/* SearchBar - ancho completo en móvil */}
       <SearchBar onSearch={handleSearch} />
 
-      {/*LISTA FILTRADA*/}
+      {/* Items - columna única en móvil, grid en desktop */}
       <div className="
-        grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
+        flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 
         gap-[24px]
-        w-full justify-items-center
+        w-full items-center md:justify-items-center
       ">
         {filteredProducts.length === 0 ? (
           <p className="col-span-full text-gray-500 mt-10">No hemos encontrado flores con ese nombre.</p>

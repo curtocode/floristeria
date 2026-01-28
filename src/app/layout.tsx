@@ -33,11 +33,12 @@ export default function RootLayout({
       <body 
         className={`${nunito.variable} ${dmSans.variable} font-sans`}
         style={{
-          width: '100vw',
+          width: '100%',
           minHeight: '100vh',
           background: '#F9F9F9',
           margin: 0,
           padding: 0,
+          overflowX: 'hidden',
         }}
       >
         <Header />

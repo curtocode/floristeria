@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { productsService } from '@/services/products.service';
 import type { Product } from '@/types/product.types';
+import { ChevronRightIcon } from '@/components/ChevronRightIcon';
 
 interface Props {
   productId: string;
@@ -23,29 +24,79 @@ export const ProductDetailView = ({ productId }: Props) => {
   if (!product) return <div className="p-20 text-center font-nunito">Producto no encontrado</div>;
 
   return (
-    <main className="relative min-h-screen bg-white">
-      {/* Contenedor Principal: Top 114px, Max-Width 1200px, Gap 48px */}
-      <div className="
-        mx-auto flex flex-col items-start p-0 gap-[48px]
-        w-full max-w-[1200px] mt-[114px] mb-20 px-4 md:px-0
-      ">
+    <main className="relative min-h-screen">
+      {/* Content: Figma - width 1200px, centrado, top 114px, gap 48px */}
+      <div 
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          padding: '0px',
+          gap: '48px',
+          width: '100%',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          paddingTop: '48px',
+          paddingLeft: '16px',
+          paddingRight: '16px',
+          boxSizing: 'border-box',
+        }}
+      >
         
-        {/* Breadcrumbs: Inicio > Nombre de la flor */}
-        <nav className="flex flex-row items-center p-0 gap-[4px] w-full h-[24px]">
-          <Link href="/" className="font-sans text-[14px] text-[#606060] hover:text-black">
+        {/* Breadcrumbs: Figma - flex row, gap 4px, height 24px */}
+        <nav 
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: '0px',
+            gap: '4px',
+            height: '24px',
+          }}
+        >
+          {/* Inicio */}
+          <Link 
+            href="/" 
+            style={{
+              fontFamily: 'var(--font-dm-sans), sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 400,
+              fontSize: '16px',
+              lineHeight: '24px',
+              color: '#606060',
+              textDecoration: 'none',
+            }}
+          >
             Inicio
           </Link>
-          <span className="text-[#606060] text-[14px]">&gt;</span>
-          <span className="font-sans text-[14px] text-[#606060] font-medium">
+          
+          {/* Chevron Icon - 24x24 container */}
+          <ChevronRightIcon />
+          
+          {/* Nombre del producto */}
+          <span 
+            style={{
+              fontFamily: 'var(--font-dm-sans), sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 400,
+              fontSize: '16px',
+              lineHeight: '24px',
+              color: '#606060',
+            }}
+          >
             {product.name}
           </span>
         </nav>
 
-        {/* Grid de Contenido */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[48px] w-full items-start">
+        {/* Detail: flex column en mobile, row en desktop. Gap 40px */}
+        <div 
+          className="flex flex-col md:flex-row items-start gap-[40px] w-full"
+        >
           
-          {/* Imagen del Producto */}
-          <div className="w-full aspect-square rounded-[32px] overflow-hidden">
+          {/* Image: 250px altura en móvil, 50% width en desktop */}
+          <div 
+            className="w-full h-[250px] md:h-auto md:w-1/2 md:min-w-[300px] md:aspect-[600/905] rounded-[32px] overflow-hidden flex-shrink-0"
+          >
             <img 
               src={product.imgUrl} 
               alt={product.name} 
@@ -53,57 +104,70 @@ export const ProductDetailView = ({ productId }: Props) => {
             />
           </div>
 
-          {/* Columna de Información */}
-          <div className="flex flex-col items-start p-0 gap-[24px] w-full">
+          {/* Content (derecha en desktop, abajo en mobile). Gap 24px */}
+          <div 
+            className="flex flex-col items-start gap-[24px] flex-1 w-full"
+          >
             
-            {/* Título y Nombre Binomial */}
-            <div className="flex flex-col items-start p-0 gap-1 flex-none grow-0">
-              <h1 className="
-                font-nunito font-bold text-[48px] leading-[72px] text-[#111111]
-                flex-none order-0 grow-0 h-auto
-              ">
+            {/* Title: flex column, gap 4px */}
+            <div 
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                padding: '0px',
+                gap: '4px',
+              }}
+            >
+              {/* Nombre: Nunito 48px/72px bold */}
+              <h1 
+                className="font-nunito font-bold text-[48px] leading-[72px] text-[#111111] m-0"
+              >
                 {product.name}
               </h1>
-              <p className="
-                font-sans font-normal text-[16px] leading-[24px] text-[#606060]
-                flex-none order-1 grow-0 h-auto
-              ">
+              
+              {/* Binomial: DM Sans 16px/24px #606060 */}
+              <p 
+                className="font-dmsans font-normal text-[16px] leading-[24px] text-[#606060] m-0"
+              >
                 {product.binomialName}
               </p>
             </div>
 
-            {/* Precio */}
-            <div className="font-nunito font-bold text-[32px] text-[#111111]">
+            {/* Precio: Nunito 28px/42px bold */}
+            <span 
+              className="font-nunito font-bold text-[28px] leading-[42px] text-[#111111]"
+            >
               €{product.price.toFixed(2)}
+            </span>
+
+            {/* Requirements: flex column, padding-left 16px, gap 8px */}
+            <div 
+              className="flex flex-col items-start pl-4 gap-2"
+            >
+              {/* Regar: DM Sans 14px/21px #111111 */}
+              <span 
+                className="font-dmsans font-normal text-[14px] leading-[21px] text-[#111111]"
+              >
+                · Regar {product.wateringsPerWeek} vez por semana
+              </span>
+              
+              {/* Fertilizar: DM Sans 14px/21px #111111 */}
+              <span 
+                className="font-dmsans font-normal text-[14px] leading-[21px] text-[#111111]"
+              >
+                · Fertilizar con {product.fertilizerType}
+              </span>
             </div>
 
-            {/* Listado de Cuidados */}
-            <div className="flex flex-col gap-4">
-              <ul className="list-none p-0 m-0 flex flex-col gap-2">
-                <li className="font-sans text-[16px] text-[#404040]">
-                  • Regar {product.wateringsPerWeek} vez por semana
-                </li>
-                <li className="font-sans text-[16px] text-[#404040]">
-                  • Fertilizar con {product.fertilizerType}
-                </li>
-              </ul>
-            </div>
-
-            {/* Botón Añadir al carrito (Configuración Figma) */}
-            <button className="
-              flex flex-row justify-center items-center 
-              px-[16px] py-[8px] gap-[10px]
-              w-[136px] h-[44px]
-              bg-[#771E42] rounded-[1000px]
-              flex-none order-3 grow-0
-              hover:opacity-90 transition-all active:scale-95
-            ">
-              <span className="
-                w-[104px] h-[21px]
-                font-sans font-normal text-[14px] leading-[21px]
-                text-white text-center
-                flex-none order-0 grow-0
-              ">
+            {/* Button: ancho completo en móvil, 136px en desktop */}
+            <button 
+              className="flex flex-row justify-center items-center py-2 px-4 gap-2.5 w-full md:w-[136px] h-[44px] bg-[#771E42] rounded-[1000px] border-none cursor-pointer hover:opacity-90 transition-all active:scale-95"
+            >
+              {/* Texto: DM Sans 14px/21px white */}
+              <span 
+                className="font-dmsans font-normal text-[14px] leading-[21px] text-white"
+              >
                 Añadir al carrito
               </span>
             </button>
