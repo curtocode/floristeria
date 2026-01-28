@@ -9,7 +9,6 @@ export const SearchBar = ({ onSearch }: Props) => {
       w-full md:max-w-[600px] h-[40px] 
       bg-white 
       border border-[#BBBBBB] rounded-[8px]
-      self-stretch
     ">
       {/* Icono Lupa */}
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A4A4A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
