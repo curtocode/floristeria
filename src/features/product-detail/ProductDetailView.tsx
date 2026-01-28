@@ -14,6 +14,11 @@ export const ProductDetailView = ({ productId }: Props) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Scroll al top cuando se carga la vista
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     productsService.getProductById(productId)
       .then(setProduct)
