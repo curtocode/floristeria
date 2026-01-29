@@ -20,4 +20,4 @@ jobs:
     steps:
       - name: Build Docker Compose
         run: |
-          sudo docker compose up -d --build
+          sudo docker compose --env-file /etc/envvars/floristeria/.env up -d --build
