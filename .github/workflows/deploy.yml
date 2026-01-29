@@ -1,0 +1,23 @@
+name: Deploy to Production 🚀
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkout:
+    name: Checkout Code 🔍
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+  docker_compose:
+    name: Build and Deploy with Docker Compose 🐳
+    runs-on: [self-hosted, linux]
+    needs: checkout
+    steps:
+      - name: Build Docker Compose
+        run: |
+          sudo docker compose up -d --build
