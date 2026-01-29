@@ -10,11 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        // tailwind.config.ts
-fontFamily: {
-  nunito: ['var(--font-nunito)'], 
-  sans: ['var(--font-dm-sans)'],   
-},
+        nunito: ['var(--font-nunito)'],
+        dmsans: ['var(--font-dm-sans)'],
+        sans: ['var(--font-dm-sans)'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

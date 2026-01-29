@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { productsService } from '@/services/products.service';
 import type { Product } from '@/types/product.types';
 import { ChevronRightIcon } from '@/components/ChevronRightIcon';
+import { translateFertilizer } from '@/utils/translations';
 
 interface Props {
   productId: string;
@@ -30,7 +31,6 @@ export const ProductDetailView = ({ productId }: Props) => {
 
   return (
     <main className="relative min-h-screen">
-      {/* Content: Figma - width 1200px, centrado, top 114px, gap 48px */}
       <div 
         style={{
           display: 'flex',
@@ -47,8 +47,6 @@ export const ProductDetailView = ({ productId }: Props) => {
           boxSizing: 'border-box',
         }}
       >
-        
-        {/* Breadcrumbs: Figma - flex row, gap 4px, height 24px */}
         <nav 
           style={{
             display: 'flex',
@@ -73,8 +71,7 @@ export const ProductDetailView = ({ productId }: Props) => {
             }}
           >
             Inicio
-          </Link>
-          
+          </Link> 
           {/* Chevron Icon - 24x24 container */}
           <ChevronRightIcon />
           
@@ -108,13 +105,9 @@ export const ProductDetailView = ({ productId }: Props) => {
               className="w-full h-full object-cover"
             />
           </div>
-
-          {/* Content (derecha en desktop, abajo en mobile). Gap 24px */}
           <div 
             className="flex flex-col items-start gap-[24px] flex-1 w-full"
           >
-            
-            {/* Title: flex column, gap 4px */}
             <div 
               style={{
                 display: 'flex',
@@ -124,44 +117,48 @@ export const ProductDetailView = ({ productId }: Props) => {
                 gap: '4px',
               }}
             >
-              {/* Nombre: Nunito 48px/72px bold */}
               <h1 
                 className="font-nunito font-bold text-[48px] leading-[72px] text-[#111111] m-0"
               >
                 {product.name}
               </h1>
-              
-              {/* Binomial: DM Sans 16px/24px #606060 */}
               <p 
-                className="font-dmsans font-normal text-[16px] leading-[24px] text-[#606060] m-0"
+                className="font-dmsans text-[16px] leading-[24px] text-[#606060] m-0"
               >
                 {product.binomialName}
               </p>
             </div>
-
-            {/* Precio: Nunito 28px/42px bold */}
             <span 
               className="font-nunito font-bold text-[28px] leading-[42px] text-[#111111]"
             >
               €{product.price.toFixed(2)}
             </span>
-
-            {/* Requirements: flex column, padding-left 16px, gap 8px */}
             <div 
               className="flex flex-col items-start pl-4 gap-2"
             >
-              {/* Regar: DM Sans 14px/21px #111111 */}
               <span 
-                className="font-dmsans font-normal text-[14px] leading-[21px] text-[#111111]"
-              >{/* si es una vez poner vez sino veces */}
-                · Regar  {product.wateringsPerWeek} {product.wateringsPerWeek === 1 ? 'vez' : 'veces'} por semana
-              </span>
-              
-              {/* Fertilizar: DM Sans 14px/21px #111111 */}
-              <span 
-                className="font-dmsans font-normal text-[14px] leading-[21px] text-[#111111]"
+                style={{
+                  fontFamily: 'var(--font-dm-sans), sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  fontSize: '14px',
+                  lineHeight: '21px',
+                  color: '#111111',
+                }}
               >
-                · Fertilizar con {product.fertilizerType}
+                · Regar {product.wateringsPerWeek} {product.wateringsPerWeek === 1 ? 'vez' : 'veces'} por semana
+              </span>
+              <span 
+                style={{
+                  fontFamily: 'var(--font-dm-sans), sans-serif',
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  fontSize: '14px',
+                  lineHeight: '21px',
+                  color: '#111111',
+                }}
+              >
+                · Fertilizar con {translateFertilizer(product.fertilizerType)}
               </span>
             </div>
 
@@ -169,14 +166,12 @@ export const ProductDetailView = ({ productId }: Props) => {
             <button 
               className="flex flex-row justify-center items-center py-2 px-4 gap-2.5 w-full md:w-[136px] h-[44px] bg-[#771E42] rounded-[1000px] border-none cursor-pointer hover:opacity-90 transition-all active:scale-95"
             >
-              {/* Texto: DM Sans 14px/21px white */}
               <span 
-                className="font-dmsans font-normal text-[14px] leading-[21px] text-white"
+                className="font-dmsans text-[14px] leading-[21px] text-white"
               >
                 Añadir al carrito
               </span>
             </button>
-
           </div>
         </div>
       </div>
