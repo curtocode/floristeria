@@ -16,8 +16,8 @@ export const ProductCard = ({ product }: Props) => {
       shadow-[0px_4px_4px_-1px_rgba(12,12,13,0.1),0px_4px_4px_-1px_rgba(12,12,13,0.05)]
       /* Comportamiento extra */
       transition-transform hover:-translate-y-1 duration-300
-      /* Mobile: width 361px (full), Desktop: width 384px */
-      h-[422px] w-full max-w-[361px] md:max-w-[384px] md:min-w-[384px] mx-auto
+      /* Mobile: width 100%, max 361px. Desktop: max 384px */
+      h-[422px] w-full max-w-[361px] md:max-w-[384px]
       relative /* Necesario para posicionar elementos absolutos */
       isolate /* Figma: isolation: isolate */
     ">

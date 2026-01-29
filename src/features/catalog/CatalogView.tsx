@@ -51,9 +51,9 @@ export default function CatalogView() {
 
       {/* Items - columna única en móvil, grid en desktop */}
       <div className="
-        flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 
+        grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 
         gap-[24px]
-        w-full items-center md:justify-items-center
+        w-full justify-items-center
       ">
         {filteredProducts.length === 0 ? (
           <p className="col-span-full text-gray-500 mt-10">No hemos encontrado flores con ese nombre.</p>
