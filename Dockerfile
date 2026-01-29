@@ -55,6 +55,10 @@ COPY nginx/nginx.conf /etc/nginx/http.d/default.conf
 RUN mkdir -p /var/log/nginx /var/lib/nginx/tmp /run/nginx
 RUN chown -R nextjs:nodejs /var/log/nginx /var/lib/nginx /run/nginx
 
+# Copiar script de inicio
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
 # Exponer puerto 80 (Nginx)
 EXPOSE 80
 
@@ -62,5 +66,5 @@ EXPOSE 80
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Iniciar Next.js directamente
-CMD ["node", "server.js"]
+# Iniciar Nginx y Next.js
+CMD ["/app/start.sh"]
