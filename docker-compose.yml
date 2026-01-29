@@ -1,20 +1,31 @@
 services:
+  # ========================================
+  # NGINX - Reverse Proxy (Puerto 80)
+  # ========================================
+  nginx:
+    image: nginx:alpine
+    container_name: floristeria-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - floristeria
+    restart: unless-stopped
+
+  # ========================================
+  # NEXT.JS - Aplicación (Puerto interno 3000)
+  # ========================================
   floristeria:
-    # Nombre del contenedor
     container_name: floristeria-app
-    
-    # Construir desde el Dockerfile en el directorio actual
     build:
       context: .
       dockerfile: Dockerfile
       args:
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-    
-    # Mapeo de puertos: HOST:CONTENEDOR
-    ports:
-      - "3000:3000"
-    
-    # Variables de entorno de runtime (para variables del servidor)
+    # Puerto interno, no expuesto al exterior
+    expose:
+      - "3000"
     environment:
       - NODE_ENV=production
     restart: unless-stopped
