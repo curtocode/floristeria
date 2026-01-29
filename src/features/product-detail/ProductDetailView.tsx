@@ -153,8 +153,8 @@ export const ProductDetailView = ({ productId }: Props) => {
               {/* Regar: DM Sans 14px/21px #111111 */}
               <span 
                 className="font-dmsans font-normal text-[14px] leading-[21px] text-[#111111]"
-              >
-                · Regar {product.wateringsPerWeek} vez por semana
+              >{/* si es una vez poner vez sino veces */}
+                · Regar  {product.wateringsPerWeek} {product.wateringsPerWeek === 1 ? 'vez' : 'veces'} por semana
               </span>
               
               {/* Fertilizar: DM Sans 14px/21px #111111 */}
