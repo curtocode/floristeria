@@ -1,0 +1,21 @@
+services:
+  floristeria:
+    # Nombre del contenedor
+    container_name: floristeria-app
+    
+    # Construir desde el Dockerfile en el directorio actual
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    
+    # Mapeo de puertos: HOST:CONTENEDOR
+    ports:
+      - "3000:3000"
+    
+    # Variables de entorno de runtime (para variables del servidor)
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    
