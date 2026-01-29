@@ -1,3 +1,6 @@
+# ========================================
+# ETAPA 1: DEPENDENCIAS
+# ========================================
 FROM node:20-alpine AS deps
 
 RUN apk add --no-cache libc6-compat
@@ -8,6 +11,9 @@ COPY package.json package-lock.json* ./
 
 RUN npm ci
 
+# ========================================
+# ETAPA 2: BUILD
+# ========================================
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -21,34 +27,44 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 RUN npm run build
 
+# ========================================
+# ETAPA 3: PRODUCCIÓN CON NGINX
+# ========================================
 FROM node:20-alpine AS runner
 
 WORKDIR /app
 
+# Instalar Nginx y supervisor para ejecutar múltiples procesos
+RUN apk add --no-cache nginx supervisor
+
 ENV NODE_ENV=production
 
+# Crear usuario no-root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Copiar archivos de Next.js
 COPY --from=builder /app/public ./public
-
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Cambiamos al usuario no-root
-USER nextjs
+# Copiar configuración de Nginx
+COPY nginx/nginx.conf /etc/nginx/http.d/default.conf
 
-EXPOSE 3000
+# Crear directorios necesarios para Nginx
+RUN mkdir -p /var/log/nginx /var/lib/nginx/tmp /run/nginx
+RUN chown -R nextjs:nodejs /var/log/nginx /var/lib/nginx /run/nginx
 
-# Variable de entorno para el puerto
+# Configuración de Supervisor (ejecuta Node + Nginx)
+RUN mkdir -p /etc/supervisor.d
+COPY supervisord.conf /etc/supervisord.conf
+
+# Exponer puerto 80 (Nginx)
+EXPOSE 80
+
+# Variable de entorno para Next.js
 ENV PORT=3000
-
-# Configuramos el hostname para que escuche en todas las interfaces
 ENV HOSTNAME="0.0.0.0"
 
-# Comando para iniciar la aplicación
-# server.js es generado por el output: 'standalone'
-CMD ["node", "server.js"]
+# Iniciar con Supervisor (gestiona Node y Nginx)
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
