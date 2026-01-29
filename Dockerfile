@@ -34,8 +34,8 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Instalar Nginx y supervisor para ejecutar múltiples procesos
-RUN apk add --no-cache nginx supervisor
+# Instalar Nginx
+RUN apk add --no-cache nginx
 
 ENV NODE_ENV=production
 
@@ -55,10 +55,6 @@ COPY nginx/nginx.conf /etc/nginx/http.d/default.conf
 RUN mkdir -p /var/log/nginx /var/lib/nginx/tmp /run/nginx
 RUN chown -R nextjs:nodejs /var/log/nginx /var/lib/nginx /run/nginx
 
-# Configuración de Supervisor (ejecuta Node + Nginx)
-RUN mkdir -p /etc/supervisor.d
-COPY supervisord.conf /etc/supervisord.conf
-
 # Exponer puerto 80 (Nginx)
 EXPOSE 80
 
@@ -66,5 +62,5 @@ EXPOSE 80
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Iniciar con Supervisor (gestiona Node y Nginx)
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+# Iniciar Next.js directamente
+CMD ["node", "server.js"]
